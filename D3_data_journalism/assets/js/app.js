@@ -18,13 +18,12 @@ function interactiveGraphs() {
         .attr("width", svgWidth)
         .attr("height", svgHeight);
 
-    let chartGroup = svg.append("g")
+    let chartGroup = svg.append("r")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     d3.csv("assets/data/data.csv")
         .then(function (riskData) {
 
-     
             riskData.forEach(function (data) {
                 data.age = +data.age;
                 data.smokes = +data.smokes;
@@ -46,27 +45,27 @@ function interactiveGraphs() {
             let xAxis = d3.axisBottom(xLinearScale);
             let yAxis = d3.axisLeft(yLinearScale);
 
-
-            chartGroup.append("g")
+            chartGroup.append("r")
                 .attr("transform", `translate(0, ${height})`)
                 .call(xAxis);
 
-            chartGroup.append("g")
+            chartGroup.append("r")
                 .call(yAxis);
 
-            let circlesGroup = chartGroup.selectAll("circle")
+
+            chartGroup.selectAll("circle")
                 .data(riskData)
                 .enter()
                 .append("circle")
                 .attr("cx", d => xLinearScale(d.poverty))
                 .attr("cy", d => yLinearScale(d.healthcare))
                 .attr("r", 10)
-                .attr("fill", "lightblue")
+                .attr("fill", "blue")
                 .attr("opacity", ".6")
                 .attr("stroke-width", "1")
                 .attr("stroke", "black");
 
-            chartGroup.select("g")
+            chartGroup.select("r")
                 .selectAll("circle")
                 .data(riskData)
                 .enter()
