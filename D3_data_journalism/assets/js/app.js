@@ -18,7 +18,7 @@ function interactiveGraphs() {
         .attr("width", svgWidth)
         .attr("height", svgHeight);
 
-    let chartGroup = svg.append("r")
+    let chartGroup = svg.append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     d3.csv("assets/data/data.csv")
@@ -45,11 +45,11 @@ function interactiveGraphs() {
             let xAxis = d3.axisBottom(xLinearScale);
             let yAxis = d3.axisLeft(yLinearScale);
 
-            chartGroup.append("r")
+            chartGroup.append("g")
                 .attr("transform", `translate(0, ${height})`)
                 .call(xAxis);
 
-            chartGroup.append("r")
+            chartGroup.append("g")
                 .call(yAxis);
 
 
@@ -65,7 +65,7 @@ function interactiveGraphs() {
                 .attr("stroke-width", "1")
                 .attr("stroke", "black");
 
-            chartGroup.select("r")
+            chartGroup.select("g")
                 .selectAll("circle")
                 .data(riskData)
                 .enter()
