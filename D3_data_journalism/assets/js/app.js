@@ -22,9 +22,9 @@ function interactiveGraphs() {
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     d3.csv("assets/data/data.csv")
-        .then(function (riskData) {
+        .then(function (calcData) {
 
-            riskData.forEach(function (data) {
+            calcData.forEach(function (data) {
                 data.age = +data.age;
                 data.smokes = +data.smokes;
                 data.healthcare = +data.healthcare;
@@ -34,11 +34,11 @@ function interactiveGraphs() {
             });
 
             let xLinearScale = d3.scaleLinear()
-                .domain([8.5, d3.max(riskData, d => d.poverty)])
+                .domain([8.5, d3.max(calcData, d => d.poverty)])
                 .range([0, width]);
 
             let yLinearScale = d3.scaleLinear()
-                .domain([3.5, d3.max(riskData, d => d.healthcare)])
+                .domain([3.5, d3.max(calcData, d => d.healthcare)])
                 .range([height, 0]);
 
 
@@ -54,20 +54,20 @@ function interactiveGraphs() {
 
 
             chartGroup.selectAll("circle")
-                .data(riskData)
+                .data(calcData)
                 .enter()
                 .append("circle")
                 .attr("cx", d => xLinearScale(d.poverty))
                 .attr("cy", d => yLinearScale(d.healthcare))
                 .attr("r", 10)
-                .attr("fill", "blue")
-                .attr("opacity", ".6")
-                .attr("stroke-width", "1")
+                .attr("fill", "pink")
+                .attr("opacity", ".7")
+                .attr("stroke-width", ".5")
                 .attr("stroke", "black");
 
             chartGroup.select("g")
                 .selectAll("circle")
-                .data(riskData)
+                .data(calcData)
                 .enter()
                 .append("text")
                 .text(d => d.abbr)
@@ -75,22 +75,22 @@ function interactiveGraphs() {
                 .attr("y", d => yLinearScale(d.healthcare))
                 .attr("dy", -395)
                 .attr("text-anchor", "middle")
-                .attr("font-size", "12px")
+                .attr("font-size", "10px")
                 .attr("fill", "black");
 
-            console.log(riskData);
+            console.log(calcData);
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 0 - 50)
                 .attr("x", 0 - 250)
                 .attr("dy", "1em")
-                .attr("class", "axisText")
-                .text("Lacks Healthcare (%)");
+                .attr("class", "axis-Text")
+                .text("No Healthcare (%)");
 
             chartGroup.append("text")
                 .attr("transform", `translate(${width / 2.5}, ${height + margin.top + 25})`)
-                .attr("class", "axisText")
-                .text("In Poverty (%)");
+                .attr("class", "axis-Text")
+                .text("Poverty (%)");
 
 
 
